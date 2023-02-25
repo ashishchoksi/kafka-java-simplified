@@ -27,6 +27,7 @@ public class MyProducer {
      */
     public MyProducer(Properties properties) {
         this.kafkaProducer = new KafkaProducer<>(properties);
+        registerShutdownHook();
     }
 
     /**
@@ -39,7 +40,6 @@ public class MyProducer {
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, message);
         log.info("writing message to topic: {}, message: {}", topic, message);
         kafkaProducer.send(producerRecord);
-        registerShutdownHook();
     }
 
     private void registerShutdownHook() {
