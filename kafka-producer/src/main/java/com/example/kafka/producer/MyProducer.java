@@ -45,7 +45,7 @@ public class MyProducer {
     private void registerShutdownHook() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             log.info("flush and close the producer");
-            kafkaProducer.flush();
+            kafkaProducer.flush(); // this will wait until message written to kafka
             kafkaProducer.close();
         }));
     }
