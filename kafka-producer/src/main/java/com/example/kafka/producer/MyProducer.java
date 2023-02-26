@@ -1,7 +1,9 @@
 package com.example.kafka.producer;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +41,29 @@ public class MyProducer {
     public void send(String topic, String message) {
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, message);
         log.info("writing message to topic: {}, message: {}", topic, message);
+        kafkaProducer.send(producerRecord);
+    }
+
+    /**
+     * This can write the message and print meta info once write is successful
+     */
+    public void sendAndPrintCallback(String topic, String message) {
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, message);
+        log.info("writing message to topic: {}, message: {}", topic, message);
+        kafkaProducer.send(producerRecord, new Callback() {
+            @Override
+            public void onCompletion(RecordMetadata metadata, Exception exception) {
+                log.info("Getting the callback after writing message: {}", metadata);
+            }
+        });
+    }
+
+    /**
+     * message with same key will land into same partition
+     */
+    public void sendWithMessageKey(String topic, String key, String message) {
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topic, key, message);
+        log.info("writing message to topic: {}, key: {} message: {}", topic, key, message);
         kafkaProducer.send(producerRecord);
     }
 
