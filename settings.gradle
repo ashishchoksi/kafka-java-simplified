@@ -1,4 +1,5 @@
 rootProject.name = 'kafka-examples'
-include 'kafka-producer'
-include 'kafka-consumer'
+//include 'kafka-producer'
+//include 'kafka-consumer'
+include 'kafka-wikimedia'
 
