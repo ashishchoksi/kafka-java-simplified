@@ -29,3 +29,6 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew :kafka-wikimedia:build
+
+      - name: Copy WIKI module JAR file
+        run: cp kafka-wikimedia/build/libs/*.jar ${{github.workspace}}
