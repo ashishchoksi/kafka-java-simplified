@@ -17,6 +17,9 @@ jobs:
         with:
           java-version: 11
 
+      - name: Change file permissions
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle
         run: |
           ./gradlew :kafka-wikimedia:build
