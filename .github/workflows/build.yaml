@@ -17,14 +17,14 @@ jobs:
         with:
           java-version: 11
 
+      - name: Change file permissions
+        run: chmod +x ./gradlew
+
       - name: Listing files
         run: ls -ltr
 
       - name: Download Gradle wrapper
         run: ./gradlew wrapper --gradle-version=6.8
-
-      - name: Change file permissions
-        run: chmod +x ./gradlew
 
       - name: Build with Gradle
         run: |
